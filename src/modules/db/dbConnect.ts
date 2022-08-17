@@ -24,4 +24,37 @@ const dbConnection = Knex({
   },
 });
 
-export { dbConnection };
+type ErrorMessage = import("../../types/dberror").default;
+
+const dbErrorFind = (code: number | string) => {
+  let errMsg: ErrorMessage;
+
+  if (typeof code === "string") code = parseInt(code);
+
+  switch (code) {
+    case 1048:
+      errMsg = "none_parameter"; // 필수 요청 파라미터 X
+      break;
+    case 1062:
+      errMsg = "data_already_exist";
+      break;
+    case 1406: // 필수 요청 파라미터 에러
+      errMsg = "data_too_long";
+      break;
+    case 1053:
+      errMsg = "server_shutdown";
+      break;
+    case 1480:
+    case 1525:
+    case 1452:
+      errMsg = "wrong_value";
+      break;
+    default: // 기타 데이터 베이스 오류
+      errMsg = "etc_error";
+      break;
+  }
+
+  return errMsg;
+};
+
+export { dbConnection, dbErrorFind };

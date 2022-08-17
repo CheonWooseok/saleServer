@@ -1,17 +1,18 @@
 "use strict";
 
 import { dbConnection } from "../modules/db/dbConnect";
+import { AuthUser } from "../types/User";
 
 const UserModel = {
-  findAll: async function () {
+  findAll: async () => {
     let users = await dbConnection("users");
 
     return users;
   },
-  findById: async function (id: string) {
+  findById: async (id: string) => {
     let users = await dbConnection("users").where({ user_id: id });
 
-    return users[0];
+    return <AuthUser>users[0];
   },
 };
 export default UserModel;

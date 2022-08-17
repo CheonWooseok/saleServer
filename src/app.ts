@@ -3,7 +3,7 @@ import { dbConnection } from "./modules/db/dbConnect";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { responseSuccess } from "./modules/utils/response";
-import UserModel from "./models/user";
+import UserModel from "./models/user.models";
 import indexRoute from "./routes/index";
 
 dotenv.config();
@@ -17,12 +17,6 @@ const PORT = process.env.PORT;
 
 app.use("/welcome", (req: Request, res: Response, next: NextFunction) => {
   res.send("welcome!");
-});
-
-app.get("/get", async (req: Request, res: Response) => {
-  let users = await UserModel.findAll();
-
-  responseSuccess(res, users);
 });
 
 app.use("/", indexRoute);
