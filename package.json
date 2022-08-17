@@ -23,6 +23,7 @@
     "global": "^4.4.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.2.0",
+    "mysql": "^2.18.1",
     "sequelize-cli": "^6.4.1"
   }
 }
